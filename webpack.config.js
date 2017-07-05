@@ -1,15 +1,16 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/main.js',
+  entry: ['whatwg-fetch', './src/main.js'],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
+    path: path.resolve(__dirname, 'build'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Output Management'
-    })
-  ]
+      template: 'src/index.html',
+      filename: 'index.html',
+    }),
+  ],
 };
