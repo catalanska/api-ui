@@ -2,22 +2,25 @@
   "name": "api-ui",
   "version": "0.0.1",
   "scripts": {
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open | node server"
   },
   "devDependencies": {
+    "css-loader": "^0.28.4",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
+    "extract-text-webpack-plugin": "^2.1.2",
     "html-webpack-plugin": "^2.29.0",
+    "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.5.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "engines": {
     "node": ">= 4"
   },
   "dependencies": {
-    "express": "^4.15.3",
-    "whatwg-fetch": "^2.0.3"
+    "express": "^4.15.3"
   }
 }
