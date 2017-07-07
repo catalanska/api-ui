@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -6,7 +7,7 @@ module.exports = {
   entry: ['babel-polyfill', 'whatwg-fetch', './src/main.js'],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, '../', 'build'),
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -14,6 +15,11 @@ module.exports = {
       filename: 'index.html',
     }),
     new ExtractTextPlugin('src/main.css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    }),
   ],
   module: {
     loaders: [
