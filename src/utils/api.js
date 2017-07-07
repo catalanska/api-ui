@@ -5,9 +5,7 @@ const domain = 'http://localhost:3000';
 export function getMethodsList() {
   return fetch(`${domain}/listOfMethods`, {
     'Content-Type': 'application/json',
-  }).then((response) => {
-    return response.json();
-  });
+  }).then(response => response.json());
 }
 
 export function callMethod(url, method, format) {
