@@ -9,7 +9,7 @@ export function getMethodsList() {
 }
 
 export function callMethod(url, method, format) {
-  return fetch(`${domain}/${url}`, {
+  return fetch(`${domain}${url}`, {
     headers: {
       'Content-Type': format,
       Accept: format,
