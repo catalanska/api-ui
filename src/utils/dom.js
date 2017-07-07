@@ -1,5 +1,5 @@
 const prettyJSON = (json) => {
-  let cleanText = json.trim().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  let cleanText = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const regExp = /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g;
   cleanText = cleanText.replace(regExp, (match) => {
     let cls = 'blue';
@@ -12,7 +12,7 @@ const prettyJSON = (json) => {
     }
     return `<span class="${cls}">${match}</span>`;
   });
-  return cleanText.trim();
+  return cleanText;
 };
 
 /**
@@ -51,7 +51,7 @@ const createResponseHtml = (apiMethod) => {
     </p>
   `;
 
-  for (const [key, value] of headers.entries()) {
+  for (const [key, value] of headers.entries()) { // eslint-disable-line no-restricted-syntax
     html += `
       <p>
         <strong>${key}: </strong> &nbsp;
@@ -125,4 +125,5 @@ export function updateResponse(apiMethod) {
   const element = apiMethod.domElement;
   const responseElement = element.querySelector('.apiMethodResponse');
   responseElement.innerHTML = createResponseHtml(apiMethod);
+  return responseElement;
 }
