@@ -12,7 +12,6 @@ const prettyJSON = (json) => {
     }
     return `<span class="${cls}">${match}</span>`;
   });
-  console.log(cleanText);
   return cleanText.trim();
 };
 
@@ -45,14 +44,14 @@ const createItemHtml = apiMethod =>
 const createResponseHtml = (apiMethod) => {
   const response = apiMethod.response;
   const headers = response.headers;
-  // console.log(headers.keys().next());
+
   let html = `
     <p>
       <strong>${apiMethod.protocol.toUpperCase()} ${response.status}</strong>
     </p>
   `;
 
-  for (const [key, value] of headers) {
+  for (const [key, value] of headers.entries()) {
     html += `
       <p>
         <strong>${key}: </strong> &nbsp;
