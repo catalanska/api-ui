@@ -1,5 +1,6 @@
+import ApiResponse from './apiResponse';
 import { callMethod } from './utils/api';
-import { renderApiMethod, updateRender } from './utils/dom';
+import { renderApiMethod, updateResponse } from './utils/dom';
 
 const defaultFormat = 'application/json';
 
@@ -15,28 +16,24 @@ export default function apiMethod({ name, url, method }, format = defaultFormat)
   };
 
   const setResponse = (response) => {
-    this.responseStatus = response.status;
-    return response.text().then((responseText) => {
-      this.responseText = responseText;
-    });
+    this.response = new ApiResponse(response);
+    return this.response.extractData();
   };
 
   this.updateFormat = (newFormat) => {
     this.format = newFormat;
-    return this.fetchData().then(() => {
-      updateRender(this);
-    });
+    return this.fetchData();
   };
 
-  this.fetchData = () => {
-    const promise = callMethod(this.url, this.httpMethod, this.format)
-        .then(response => setResponse(response))
-        .then(() => setFetched(true));
-    return promise;
-  };
+  this.fetchData = () => callMethod(this.url, this.httpMethod, this.format)
+    .then(response => setResponse(response))
+    .then(() => {
+      setFetched(true);
+      updateResponse(this);
+    });
 
   this.render = () => {
-    renderApiMethod(this);
+    this.domElement = renderApiMethod(this);
   };
 }
 

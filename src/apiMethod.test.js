@@ -2,6 +2,13 @@ import ApiMethod from './apiMethod';
 
 const { getMockData } = require('./utils/mockData');
 
+jest.mock('../src/utils/dom', () => {
+  return {
+    renderApiMethod: function(){},
+    updateResponse: function(){},
+  }
+});
+
 let jsonResp;
 let xmlResp;
 let endpointInfo;
@@ -13,7 +20,12 @@ beforeEach((done) => {
     url: '/foo',
     method: 'GET',
   };
-  apiMethod = new ApiMethod(endpointInfo);
+
+  apiMethod = new ApiMethod( {
+    name: 'Foo',
+    url: '/foo',
+    method: 'GET',
+  });
 
   getMockData().then(({ jsonResponse, xmlResponse }) => {
     jsonResp = jsonResponse;
@@ -23,10 +35,6 @@ beforeEach((done) => {
 });
 
 describe('JSON Format', () => {
-  beforeEach(() => {
-    apiMethod = new ApiMethod(endpointInfo);
-  });
-
   describe('Object creation: new ApiMethod(params)', () => {
     it('creates a proper object', () => {
       expect(apiMethod).toBeTruthy();
@@ -46,8 +54,9 @@ describe('JSON Format', () => {
       fetch.mockResponseOnce(jsonResp, { status: 200 });
       apiMethod.fetchData().then(() => {
         expect(apiMethod.fetched).toBe(true);
-        expect(apiMethod.responseStatus).toBe(200);
-        expect(apiMethod.responseText).toBe(jsonResp);
+        const response = apiMethod.response;
+        expect(response.status).toBe(200);
+        expect(response.text).toBe(jsonResp);
         done();
       });
     });
@@ -58,8 +67,9 @@ describe('JSON Format', () => {
       fetch.mockResponse(xmlResp, { status: 200 });
       apiMethod.updateFormat('text/xml').then(() => {
         expect(apiMethod.fetched).toBe(true);
-        expect(apiMethod.responseStatus).toBe(200);
-        expect(apiMethod.responseText).toBe(xmlResp);
+        const response = apiMethod.response;
+        expect(response.status).toBe(200);
+        expect(response.text).toBe(xmlResp);
         done();
       });
     });
@@ -90,8 +100,9 @@ describe('XML Format', () => {
       fetch.mockResponse(xmlResp, { status: 200 });
       apiMethod.fetchData().then(() => {
         expect(apiMethod.fetched).toBe(true);
-        expect(apiMethod.responseStatus).toBe(200);
-        expect(apiMethod.responseText).toBe(xmlResp);
+        const response = apiMethod.response;
+        expect(response.status).toBe(200);
+        expect(response.text).toBe(xmlResp);
         done();
       });
     });
