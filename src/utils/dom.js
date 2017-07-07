@@ -1,3 +1,31 @@
+const createItemHtml = apiMethod =>
+  `
+   <div class="apiMethodHeader">
+     <div>
+       <strong>${apiMethod.name}</strong>
+     </div>
+     <div class="selectFormat"></div>
+   </div>
+   <div class="apiMethodDescription">
+     <div>
+       ${apiMethod.url}
+     </div>
+     <div>
+       ${apiMethod.format}
+     </div>
+   </div>
+   <div class="apiMethodResponse"></div>
+`;
+
+const createResponseHtml = response =>
+`<div>
+  <strong>${response.status}</strong>
+</div>
+<div>
+  ${response.text}
+</div>
+`;
+
 const addSelectOption = (domElement, text, value) => {
   const option = document.createElement('option');
   option.value = value;
@@ -5,55 +33,38 @@ const addSelectOption = (domElement, text, value) => {
   domElement.appendChild(option);
 };
 
-const createSelect = (apiMethod) => {
-  const selectList = document.createElement('select');
-  addSelectOption(selectList, 'JSON', 'application/json');
-  addSelectOption(selectList, 'XML', 'text/xml');
-  selectList.onchange = () => {
-    apiMethod.updateFormat(selectList.value);
+const addSelect = (domElement, apiMethod) => {
+  const select = document.createElement('select');
+  addSelectOption(select, 'JSON', 'application/json');
+  addSelectOption(select, 'XML', 'text/xml');
+  select.onchange = () => {
+    apiMethod.updateFormat(select.value);
   };
-  return selectList;
+  domElement.appendChild(select);
 };
 
-const addItemHeader = (domElement, apiMethod) => {
-  const header = document.createElement('div');
-  const select = createSelect(apiMethod);
-  const textName = document.createTextNode(apiMethod.name);
-  header.appendChild(textName);
-  header.appendChild(select);
-  domElement.appendChild(header);
-};
-
-const addItemBody = (domElement, apiMethod) => {
-  const body = document.createElement('div');
-  const contentToPrint = `
-      <div>
-        ${apiMethod.url}
-      </div>
-      <div>
-        ${apiMethod.format}
-      </div>
-      <div>
-        <strong>${apiMethod.responseStatus}</strong>
-      </div>
-      <div>
-        ${apiMethod.responseText}
-      </div>
-    `;
-  body.innerHTML = contentToPrint;
-  domElement.appendChild(body);
+const addItemContent = (domElement, apiMethod) => {
+  const currentItems = document.getElementsByClassName('apiMethod');
+  const li = document.createElement('li');
+  const itemId = `apiMethod${currentItems.length + 1}`;
+  li.id = itemId;
+  li.class = 'apiMethod';
+  li.innerHTML = createItemHtml(apiMethod);
+  domElement.appendChild(li);
+  return li;
 };
 
 export function renderApiMethod(apiMethod) {
-
-  const div = document.createElement('li');
-  addItemHeader(div, apiMethod);
-  addItemBody(div, apiMethod);
-  const element = document.getElementById('methods');
-  element.appendChild(div);
+  const mainDiv = document.getElementById('methods');
+  const element = addItemContent(mainDiv, apiMethod);
+  const selectDiv = document.querySelector(`#${element.id} .selectFormat`);
+  addSelect(selectDiv, apiMethod);
+  return element;
 }
 
-export function updateRender(apiMethod) {
-  const element = document.getElementById(apiMethod.id);
+export function updateResponse(apiMethod) {
+  const element = apiMethod.domElement;
+  const responseElement = element.querySelector('.apiMethodResponse');
+  responseElement.innerHTML = createResponseHtml(apiMethod.response);
   // TODO update result
 }
