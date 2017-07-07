@@ -5,8 +5,7 @@ import ApiMethod from './apiMethod';
 getMethodsList().then((methodsList) => {
   methodsList.forEach((endpoint) => {
     const apiMethod = new ApiMethod(endpoint);
-    apiMethod.fetchData().then(() => {
-      apiMethod.render();
-    });
+    apiMethod.render();
+    apiMethod.fetchData();
   });
 });
