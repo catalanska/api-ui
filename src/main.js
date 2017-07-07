@@ -1,14 +1,12 @@
-import { getMethodsList } from './api';
-import {
-  createApiMethod,
-  fetchData,
-} from './apiMethod';
+import './main.css';
+import { getMethodsList } from './utils/api';
+import ApiMethod from './apiMethod';
 
 getMethodsList().then((methodsList) => {
   methodsList.forEach((endpoint) => {
-    const apiMethod = createApiMethod(endpoint);
-    fetchData(apiMethod).then((completedApiMethod) => {
-      //TODO render completedApiMethod
+    const apiMethod = new ApiMethod(endpoint);
+    apiMethod.fetchData().then(() => {
+      apiMethod.render();
     });
   });
 });
