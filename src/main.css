@@ -1,7 +1,69 @@
+html, body {
+    height: 100%;
+}
+
+body {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #292b2c;
+  background-color: #fff;
+  margin: 0;
+}
+
+header {
+  background-color: #444444;
+  color: #79797b;
+  min-height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apiMethod {
+    background-color: tomato;
+    padding: 5px;
+}
+
+.apiMethodHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.apiMethodCard {
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 2px solid #79797b;
+  border-radius: 7px;
+  background-color: #e0e0e2;
+}
+
+/*.container {
+  max-width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-}
+}*/
 
 ul {
   padding: 0;
