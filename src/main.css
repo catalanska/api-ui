@@ -54,9 +54,13 @@ li {
 .apiMethodCard {
   padding: 1rem;
   margin: 1rem 0;
-  border: 2px solid #79797b;
+  border: 2px solid #e2e0e0;
   border-radius: 7px;
-  background-color: #e0e0e2;
+  background-color: #f9f9f9;
+}
+
+.apiMethodCard p {
+  margin: 0.7rem 0;  
 }
 
 #items {
