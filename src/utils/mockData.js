@@ -1,5 +1,9 @@
 const fs = require('fs');
 
+/**
+ * method used to read the files and return mock data
+ * @return {Promise} Resolves when all files are read and sends an Object with all the data
+ **/
 const getMockData = () => {
   let jsonResponse;
   let xmlResponse;
