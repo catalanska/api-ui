@@ -3,10 +3,11 @@ import ApiMethod from './apiMethod';
 const { getMockData } = require('./utils/mockData');
 
 jest.mock('../src/utils/dom', () => {
-  return {
-    renderApiMethod: function(){},
-    updateResponse: function(){},
-  }
+  const mock = {
+    renderApiMethod: () => {},
+    updateResponse: () => {},
+  };
+  return mock;
 });
 
 let jsonResp;
@@ -21,10 +22,11 @@ beforeEach((done) => {
     method: 'GET',
   };
 
-  apiMethod = new ApiMethod( {
+  apiMethod = new ApiMethod({
     name: 'Foo',
     url: '/foo',
     method: 'GET',
+    protocol: 'http',
   });
 
   getMockData().then(({ jsonResponse, xmlResponse }) => {
