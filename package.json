@@ -4,7 +4,8 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config config/webpack.config.js -p",
     "start": "webpack-dev-server --open --config config/webpack.config.js | node server",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -41,8 +42,18 @@
   },
   "jest": {
     "verbose": true,
+    "testEnvironment": "jest-environment-jsdom",
     "setupFiles": [
       "./config/setupJest.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom" : [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/server/**",
+      "!**/build/**",
+      "!**/coverage/**",
+      "!**/config/**"
     ]
   }
 }
