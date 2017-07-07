@@ -1,7 +1,0 @@
-[
-    {
-        "name": "Advertiser List",
-        "url": "/advertisers",
-        "method": "GET"
-    }
-]
