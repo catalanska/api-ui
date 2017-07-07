@@ -2,7 +2,6 @@ import './main.css';
 import { getMethodsList } from './utils/api';
 import ApiMethod from './apiMethod';
 
-
 const init = () => {
   getMethodsList().then((methodsList) => {
     methodsList.forEach((endpoint) => {
