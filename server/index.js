@@ -5,8 +5,9 @@ getMockData().then(({ jsonResponse, xmlResponse }) => {
   const app = express();
   const publicMethods = [
     {
+      protocol: 'http',
       name: 'Advertiser List',
-      url: 'advertisers',
+      url: '/advertisers',
       method: 'GET',
     },
   ];
