@@ -1,3 +1,21 @@
+const prettyJSON = (json) => {
+  let cleanText = json.trim().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const regExp = /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g;
+  cleanText = cleanText.replace(regExp, (match) => {
+    let cls = 'blue';
+    if (/^"/.test(match)) {
+      cls = 'red';
+    } else if (/true|false/.test(match)) {
+      cls = 'blue';
+    } else if (/null/.test(match)) {
+      cls = 'blue';
+    }
+    return `<span class="${cls}">${match}</span>`;
+  });
+  console.log(cleanText);
+  return cleanText.trim();
+};
+
 /**
  * Creates the initial and stable content of an apiMethod
  * @param  {Object} apiMethod
@@ -24,15 +42,32 @@ const createItemHtml = apiMethod =>
  * @param  {Object} apiResponse
  * @return {String}
  */
-const createResponseHtml = apiResponse =>
-`
-  <div>
-    <strong>HTTP ${apiResponse.status}</strong>
-  </div>
-  <div>
-    ${apiResponse.text}
-  </div>
-`;
+const createResponseHtml = (apiMethod) => {
+  const response = apiMethod.response;
+  const headers = response.headers;
+  // console.log(headers.keys().next());
+  let html = `
+    <p>
+      <strong>${apiMethod.protocol.toUpperCase()} ${response.status}</strong>
+    </p>
+  `;
+
+  for (const [key, value] of headers) {
+    html += `
+      <p>
+        <strong>${key}: </strong> &nbsp;
+        <span class="blue">${value}</span>
+      </p>
+    `;
+  }
+  html += `
+    <pre>
+      ${prettyJSON(response.text)}
+    </pre>
+  `;
+
+  return html;
+};
 
 /**
  * Adds a new option to a given select HTMLElement
@@ -90,5 +125,5 @@ export function renderApiMethod(apiMethod) {
 export function updateResponse(apiMethod) {
   const element = apiMethod.domElement;
   const responseElement = element.querySelector('.apiMethodResponse');
-  responseElement.innerHTML = createResponseHtml(apiMethod.response);
+  responseElement.innerHTML = createResponseHtml(apiMethod);
 }

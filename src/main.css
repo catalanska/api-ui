@@ -19,30 +19,30 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
 }
 
-header div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+h1 {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }
 
 .container {
     height: 100%;
     padding: 0;
-    margin: 0;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto;
+    width: 1200px;
+    max-width: 80%;
 }
 
 .apiMethod {
-    background-color: tomato;
     padding: 5px;
 }
 
@@ -59,27 +59,13 @@ header div {
   background-color: #e0e0e2;
 }
 
-/*.container {
-  max-width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}*/
-
-ul {
-  padding: 0;
+#items {
+  width: 100%;
+}
+.red {
+  color: #d6315d;
 }
 
-li {
-  list-style-type: none;
-}
-
-#methods {
-  display: flex;
-  justify-content: center;
-}
-
-#methods li {
-  margin: 10px;
-  font-weight: bold;
-  cursor: pointer;
+.blue {
+  color: #034b9e;
 }
